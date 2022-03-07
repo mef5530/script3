@@ -121,8 +121,8 @@ def run_report():
 
 #driver for the main menu
 def main_menu():
+    gui_welcome_message()
     while(True):
-        gui_welcome_message()
         text_format("default")
         output:str = gui_main_menu()
         if output == "1":
