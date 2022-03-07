@@ -18,9 +18,7 @@ def command_subprocess(arg):
 
 def check_symlink(arg):
     output = command_subprocess("readlink " + arg)
-    print(output)
     if (len(output) == 1):
-        print("true")
         return True
     return False
 
@@ -42,6 +40,9 @@ def gui_welcome_message():
     print("|           Welcome to symlink.py           |")
     print("|                                           |")
     print("|===========================================|")
+    print("")
+    wd = command_subprocess("pwd")
+    print("Your current working directory is: " + wd[0])
 
 def gui_main_menu() -> str:
     text_format("default")
@@ -59,24 +60,37 @@ def run_create_sym():
         for e in output:
             if check_symlink(e):
                 output.remove(e)
-    if (len(output) == 0):
-        text_format("critical"); print("No files found, returning to menu...")
-    elif (len(output) == 1):
-        print("Found one file, " + output)
+    checkput = command_subprocess("ls -l /$HOME/Desktop/" + arg)
+    if "No such file" in checkput:
+        if (len(output) == 0):
+            text_format("critical"); print("No files found, returning to menu...")
+        elif (len(output) == 1):
+            print("Found one file, " + output)
+        else:
+            print("Found multiple files:")
+            for i in range(0, len(output)):
+                print((str)(i) + " : " + output[i])
+            text_format("warning"); selection:int = (int) (input("Please enter the index of the file you would like to create the shortcut for. For example, enter 0 for " + output[0] + " >>>\033[0;37;40m "))
+            lnoutput = command_subprocess("ln -s " + output[selection] + " $HOME/Desktop/" + arg)
+            if("File exists" in lnoutput[0]):
+                text_format("critical"); print("Task failed, file already exists.")
     else:
-        print("Found multiple files:")
-        for i in range(0, len(output)):
-            print((str)(i) + " : " + output[i])
-        text_format("warning"); selection:int = (int) (input("Please enter the index of the file you would like to create the shortcut for. For example, enter 0 for " + output[0] + " >>>\033[0;37;40m "))
-        lnoutput = command_subprocess("ln -s " + output[selection] + " $HOME/Desktop/" + arg)
-        if("File exists" in lnoutput[0]):
-            text_format("critical"); print("Task failed, file already exists.")
-
+        text_format("critical"); print("file already exists")
 def run_remove_sym():
     pass
 
 def run_report():
-    pass
+    symlinkcount = 0
+    desktopitems = command_subprocess("ls /$HOME/Desktop")
+    for e in desktopitems:
+        if check_symlink("/$HOME/Desktop/" + e):
+            symlinkcount+=1
+    print("Number of links is: " + (str)(symlinkcount))
+    print("")
+    print("Link  :  Target")
+    for e in desktopitems:
+        if check_symlink("/$HOME/Desktop/" + e):
+            print(e + "   :  " + command_subprocess("checklink /$HOME/Desktop/e")[0])
 
 def main_menu():
     gui_welcome_message()
