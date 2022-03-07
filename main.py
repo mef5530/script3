@@ -88,9 +88,10 @@ def run_create_sym():
                 print((str)(i) + " : " + output[i])
             text_format("warning"); selection:int = (int) (input("Please enter the index of the file you would like to create the shortcut for. For example, enter 0 for " + output[0] + " >>>\033[0;37;40m "))
             lnoutput = command_subprocess("ln -s " + output[selection] + " $HOME/Desktop/" + arg)
-            if("File exists" in lnoutput[0]):
-                text_format("critical"); print("Task failed, file already exists.")
-            else:
+            try:
+                if("File exists" in lnoutput[0]):
+                    text_format("critical"); print("Task failed, file already exists.")
+            except IndexError:
                 print("Task done!")
     else:
         text_format("critical"); print("File already exists")
