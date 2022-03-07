@@ -52,20 +52,13 @@ def gui_main_menu() -> str:
     text_format("warning"); print("\nPlease enter a number (1-3) or (q/Q) to quit\n"); text_format("default")
     return input(">>> ")
 
-def rem_reused_symlink(arg:list):
-    done = True
-    for e in arg:
-        if check_symlink(e):
-            done = False
-            arg.remove(e)
-            rem_reused_symlink(e)
-    if done:
-        return e
-
 def run_create_sym():
     text_format("warning"); arg = input("Please enter the filename to create a shortcut >>> \033[0;37;40m");
     output:list = command_subprocess("find $HOME -name " + arg)
-    output = rem_reused_symlink(output)
+    for i in range(0, len(output)):
+        for e in output:
+            if check_symlink(e):
+                output.remove(e)
     if (len(output) == 0):
         text_format("critical"); print("No files found, returning to menu...")
     elif (len(output) == 1):
