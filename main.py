@@ -55,7 +55,7 @@ def run_create_sym():
         print("Found multiple files:")
         for i in range(0, len(output)):
             print((str)(i) + " : " + output[i])
-        text_format("warning"); selection:int = input("Please enter the index of the file you would like to create the shortcut for. For example, enter 0 for " + output[0] + " >>>\033[0;37;40m ")
+        text_format("warning"); selection:int = (int) (input("Please enter the index of the file you would like to create the shortcut for. For example, enter 0 for " + output[0] + " >>>\033[0;37;40m "))
         lnoutput = command_subprocess("ln -s " + output[selection] + " $HOME/Desktop/" + arg)
         print(lnoutput)
 
