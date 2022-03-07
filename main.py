@@ -71,7 +71,7 @@ def run_create_sym():
             if check_symlink(e):
                 output.remove(e)
     checkput = command_subprocess("ls -l /$HOME/Desktop/" + arg)
-    if "No such file" in checkput:
+    if "No such file" in checkput[0]:
         if (len(output) == 0):
             text_format("critical"); print("No files found, returning to menu...")
         elif (len(output) == 1):
