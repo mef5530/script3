@@ -55,9 +55,9 @@ def gui_main_menu() -> str:
 def run_create_sym():
     text_format("warning"); arg = input("Please enter the filename to create a shortcut >>> \033[0;37;40m");
     output:list = command_subprocess("find $HOME -name " + arg)
-    for i in range(0, len(output)):
-        if check_symlink(output[i]):
-            output.remove(i)
+    for e in output:
+        if check_symlink(e):
+            output.remove(e)
     if (len(output) == 0):
         text_format("critical"); print("No files found, returning to menu...")
     elif (len(output) == 1):
