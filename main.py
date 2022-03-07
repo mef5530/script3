@@ -1,6 +1,17 @@
 import os
+import string
+import subprocess
+
 def cls():
     os.system("clear")
+
+def command_subprocess(arg) -> string[]:
+    process = subprocess.Popen(arg, shell=True, stdout=subprocess.PIPE)
+    output = process.communicate()
+    data: str = output[0].decode()
+    line: str = data.splitlines()
+    return line
+
 
 def text_format(arg):
     if arg == "default":
@@ -32,6 +43,8 @@ def gui_main_menu() -> str:
 
 def run_create_sym():
     text_format("warning"); arg = input("Please enter the filename to create a shortcut\033[0;37;40m");
+    output = command_subprocess("find $HOME -name " + arg)
+    print(output)
 
 
 def run_remove_sym():
