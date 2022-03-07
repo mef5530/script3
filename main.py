@@ -10,7 +10,7 @@ def command_subprocess(arg):
     output = process.communicate()
     data: str = output[0].decode()
     line: str = data.splitlines()
-    return line
+    return line[0]
 
 
 def text_format(arg):
@@ -42,7 +42,7 @@ def gui_main_menu() -> str:
     return input(">>> ")
 
 def run_create_sym():
-    text_format("warning"); arg = input("Please enter the filename to create a shortcut\033[0;37;40m");
+    text_format("warning"); arg = input("Please enter the filename to create a shortcut >>> \033[0;37;40m");
     output = command_subprocess("find $HOME -name " + arg)
     print(output)
 
