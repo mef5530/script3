@@ -17,9 +17,9 @@ def command_subprocess(arg):
         return []
 
 def check_symlink(arg):
-    output = command_subprocess("ls -la " + arg)
+    output = command_subprocess("readlink " + arg)
     print(output)
-    if '>' in output:
+    if (len(output) == 1):
         print("true")
         return True
     return False
