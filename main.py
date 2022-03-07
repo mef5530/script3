@@ -18,6 +18,7 @@ def command_subprocess(arg):
 
 def check_symlink(arg):
     output = command_subprocess("ls -la " + arg)
+    print(output)
     if "->" in output:
         return True
     return False
