@@ -48,13 +48,16 @@ def run_create_sym():
     text_format("warning"); arg = input("Please enter the filename to create a shortcut >>> \033[0;37;40m");
     output = command_subprocess("find $HOME -name " + arg)
     if (len(output) == 0):
-        print("No files found, returning to menu...")
+        text_format("critical"); print("No files found, returning to menu...")
     elif (len(output) == 1):
         print("Found one file, " + output)
     else:
         print("Found multiple files:")
         for i in range(0, len(output)):
             print((str)(i) + " : " + output[i])
+        text_format("warning"); selection:int = input("Please enter the index of the file you would like to create the shortcut for. For example, enter 0 for " + output[0] + " >>>\033[0;37;40m ")
+        lnoutput = command_subprocess("ln -s " + output[selection] + " $HOME/Desktop/" + arg)
+        print(lnoutput)
 
 def run_remove_sym():
     pass
@@ -65,6 +68,7 @@ def run_report():
 def main_menu():
     gui_welcome_message()
     while(True):
+        text_format("default")
         output:str = gui_main_menu()
         if output == "1":
             run_create_sym()
