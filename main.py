@@ -9,7 +9,7 @@ def cls():
 def command_subprocess(arg):
     #process = subprocess.Popen(arg, shell=True, stdout=subprocess.PIPE)
     #output = process.communicate()
-    output = subprocess.check_output(arg, stdout=subprocess.PIPE)
+    output = subprocess.check_output(arg)
     try:
         data: str = output[0].decode()
         lines = data.splitlines()
