@@ -5,7 +5,7 @@ import subprocess
 def cls():
     os.system("clear")
 
-def command_subprocess(arg) -> string[]:
+def command_subprocess(arg):
     process = subprocess.Popen(arg, shell=True, stdout=subprocess.PIPE)
     output = process.communicate()
     data: str = output[0].decode()
