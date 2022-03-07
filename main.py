@@ -90,7 +90,7 @@ def run_report():
     print("Link  :  Target")
     for e in desktopitems:
         if check_symlink("/$HOME/Desktop/" + e):
-            print(e + "   :  " + command_subprocess("readlink /$HOME/Desktop/e")[0])
+            print(e + "   :  " + command_subprocess("readlink /$HOME/Desktop/e"))
 
 def main_menu():
     gui_welcome_message()
