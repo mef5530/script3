@@ -54,7 +54,7 @@ def run_create_sym():
     else:
         print("Found multiple files:")
         for i in range(0, len(output)):
-            print(1 + " : " + output[i])
+            print((str)(i) + " : " + output[i])
 
 def run_remove_sym():
     pass
