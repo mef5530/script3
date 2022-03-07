@@ -16,12 +16,10 @@ def command_subprocess(arg):
     except IndexError:
         return []
 
-def check_symlink(dir, arg):
-    output = command_subprocess("ls -la " + dir)
-    for e in output:
-        if arg in e:
-            if "->" in arg:
-                return True
+def check_symlink(arg):
+    output = command_subprocess("ls -la " + arg)
+    if "->" in output:
+        return True
     return False
 
 def text_format(arg):
