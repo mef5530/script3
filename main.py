@@ -20,6 +20,7 @@ def check_symlink(arg):
     output = command_subprocess("ls -la " + arg)
     print(output)
     if '->' in output:
+        print("true")
         return True
     return False
 
