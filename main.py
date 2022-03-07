@@ -8,9 +8,12 @@ def cls():
 def command_subprocess(arg):
     process = subprocess.Popen(arg, shell=True, stdout=subprocess.PIPE)
     output = process.communicate()
-    data: str = output[0].decode()
-    line: str = data.splitlines()
-    return line[0]
+    try:
+        data: str = output[0].decode()
+        lines = data.splitlines()
+        return lines
+    except IndexError:
+        return []
 
 
 def text_format(arg):
@@ -44,8 +47,14 @@ def gui_main_menu() -> str:
 def run_create_sym():
     text_format("warning"); arg = input("Please enter the filename to create a shortcut >>> \033[0;37;40m");
     output = command_subprocess("find $HOME -name " + arg)
-    print(output)
-
+    if (len(output) == 0):
+        print("No files found, returning to menu...")
+    elif (len(output) == 1):
+        print("Found one file, " + output)
+    else:
+        print("Found multiple files:")
+        for i in range(0, len(output)):
+            print(1 + " : " + output[i])
 
 def run_remove_sym():
     pass
