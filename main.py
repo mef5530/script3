@@ -1,19 +1,20 @@
 import os
 import string
 import subprocess
+from time import sleep
 
 def cls():
     os.system("clear")
 
 def command_subprocess(arg):
     process = subprocess.Popen(arg, shell=True, stdout=subprocess.PIPE)
+    sleep(2)
     output = process.communicate()
     try:
         data: str = output[0].decode()
         lines = data.splitlines()
         return lines
     except IndexError:
-        print(output[0].decode())
         return []
 
 
