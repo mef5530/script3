@@ -103,6 +103,7 @@ def run_remove_sym():
         resp = input("Are you sure you want to remove " + fn + " (y/N")
         if (resp.lower() == "y"):
             command_subprocess("rm -rf /$HOME/Desktop/" + fn)
+            print("Done!")
     else:
         print("That isnt a symlink...")
 
