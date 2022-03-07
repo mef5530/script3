@@ -16,6 +16,10 @@ def command_subprocess(arg):
     except IndexError:
         return []
 
+def check_symlink(arg):
+    if "->" in arg:
+        return True
+    return False
 
 def text_format(arg):
     if arg == "default":
@@ -47,7 +51,10 @@ def gui_main_menu() -> str:
 
 def run_create_sym():
     text_format("warning"); arg = input("Please enter the filename to create a shortcut >>> \033[0;37;40m");
-    output = command_subprocess("find $HOME -name " + arg)
+    output:list = command_subprocess("find $HOME -name " + arg)
+    for i in range(0, len(output)):
+        if check_symlink(output[i]):
+            output.remove(i)
     if (len(output) == 0):
         text_format("critical"); print("No files found, returning to menu...")
     elif (len(output) == 1):
@@ -58,7 +65,6 @@ def run_create_sym():
             print((str)(i) + " : " + output[i])
         text_format("warning"); selection:int = (int) (input("Please enter the index of the file you would like to create the shortcut for. For example, enter 0 for " + output[0] + " >>>\033[0;37;40m "))
         lnoutput = command_subprocess("ln -s " + output[selection] + " $HOME/Desktop/" + arg)
-        print(lnoutput)
         if("File exists" in lnoutput[0]):
             text_format("critical"); print("Task failed, file already exists.")
 
